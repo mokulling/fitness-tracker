@@ -33,6 +33,7 @@ app.get('/api/workouts', (req, res) => {
     db.Workout.find({})
     .then(dbExercise => {
       res.json(dbExercise);
+      console.log(dbExercise)
     })
     .catch(err => {
       res.json(err);
@@ -43,6 +44,18 @@ app.get('/api/workouts', (req, res) => {
 app.get('/exercise', (req, res) => {
     res.sendFile(path.join(__dirname, './public', 'exercise.html'));
 
+})
+
+app.put('/api/workouts/:id', (req, res) => {
+    db.Workout.updateOne(req.body)
+    res.json(req.body)
+
+    console.log('this worked' + JSON.stringify(req.body))
+    // res(console.log('this worked'))
+})
+
+app.post('/api/workouts', ({req}, res) => {
+    
 })
 
 

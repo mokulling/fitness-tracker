@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const daySchema = new Schema({
     day: {
         type: Date,
-        date: Date.now()
     }
 
 });
