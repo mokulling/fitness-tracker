@@ -4,11 +4,11 @@ const logger = require("morgan");
 const mongoose= require('mongoose')
 const path = require('path')
 
-// const databaseUrl = "Workout";
-// const collections = ["exercises"];
-// const db = mongojs(databaseUrl, collections);
+const databaseUrl = "Workout";
+const collections = ["exercises"];
+const mongoDb = mongojs(databaseUrl, collections);
 const db = require('./models')
-const Workout = require('./models/Workout')
+// const Workout = require('./models/Workout')
 
 const app = express();
 
@@ -27,36 +27,8 @@ app.use(express.static("public"));
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
 
 
-  
-
-app.get('/api/workouts', (req, res) => {
-    db.Workout.find({})
-    .then(dbExercise => {
-      res.json(dbExercise);
-      console.log(dbExercise)
-    })
-    .catch(err => {
-      res.json(err);
-    });
-
-})
-
-app.get('/exercise', (req, res) => {
-    res.sendFile(path.join(__dirname, './public', 'exercise.html'));
-
-})
-
-app.put('/api/workouts/:id', (req, res) => {
-    db.Workout.updateOne(req.body)
-    res.json(req.body)
-
-    console.log('this worked' + JSON.stringify(req.body))
-    // res(console.log('this worked'))
-})
-
-app.post('/api/workouts', ({req}, res) => {
-    
-})
+require('./routes/api-routes')(app);
+require('./routes/api-routes')(app);
 
 
 
